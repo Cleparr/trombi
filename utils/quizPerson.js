@@ -4,11 +4,24 @@ const Airtable = require('airtable');
 // Authentication Airtable
 const base = Airtable.base(process.env.AIRTABLE_TABLE);
 
-// Recherche de la base Airtable
+const CACHE_EXPIRATION = 3600000; // temps d'expiration du cache choisi
+
+let personsCache = null;
+let heure_debut_cache = Date.now();
 const getPersons = async () => {
+    if (personsCache == null || (Date.now() - heure_debut_cache) > CACHE_EXPIRATION) {
+        console.log("Loading cache");
+        personsCache = await getPersonsOnline();
+        heure_debut_cache = Date.now();
+    }
+
+    return personsCache;
+}
+
+// Recherche de la base Airtable
+const getPersonsOnline = async () => {
     // Start your app
     const data = await base('Table 1').select().all()
-    console.log(data);
     const persons = data.map((person) => {
         if (!person.fields.Nom) {
             return false;
