@@ -8,6 +8,7 @@ const base = Airtable.base(process.env.AIRTABLE_TABLE);
 const getPersons = async () => {
     // Start your app
     const data = await base('Table 1').select().all()
+    console.log(data);
     const persons = data.map((person) => {
         if (!person.fields.Nom) {
             return false;
@@ -16,7 +17,8 @@ const getPersons = async () => {
             nom: person.fields.Nom,
             logo: person.fields.Logo[0].url,
             photo: person.fields.Photo[0].url,
-            entreprise: person.fields.Entreprise
+            entreprise: person.fields.Entreprise,
+            id: person.id,
         }
     }).filter((person) => person);
     return persons;
@@ -25,7 +27,6 @@ const getPersons = async () => {
 const getQuizMessage = async (user) => {
     const persons = await getPersons();
     shuffle(persons);
-    //const photo0 = persons[entierAlea].photo;
     const buttons = [
         {
             "type": "button",
@@ -45,7 +46,7 @@ const getQuizMessage = async (user) => {
                 "text": persons[1].nom, // A remplacer
                 //"emoji": true
             },
-            "value": JSON.stringify({nom: persons[0].nom, entreprise: persons[0].entreprise}),
+            "value": JSON.stringify({nom: persons[0].nom, entreprise: persons[0].entreprise, id: persons[0].id}),
             "action_id": "guess_false1"
         },
         {
@@ -55,7 +56,7 @@ const getQuizMessage = async (user) => {
                 "text": persons[2].nom, // A remplacer
                 //"emoji": true
             },
-            "value": JSON.stringify({nom: persons[0].nom, entreprise: persons[0].entreprise}),
+            "value": JSON.stringify({nom: persons[0].nom, entreprise: persons[0].entreprise, id: persons[0].id}),
             "action_id": "guess_false2"
         }
     ];

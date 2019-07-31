@@ -32,6 +32,7 @@ const falseGuess = async ({ body, ack, say }) => {
     const correctPerson = JSON.parse(body.actions[0].value);
     say(`:face_with_rolling_eyes: Raté, c'était en fait ${correctPerson.nom} de l'équipe ${correctPerson.entreprise}`);
     await sleep(2000);
+    // await updatePersonGuess(correctPerson.id);
     const quiz = await getQuizMessage(body.user.id);
     say(quiz);
     
