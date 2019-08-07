@@ -11,7 +11,6 @@ function shuffle(a) {
     t = a[m];
     a[m] = array[i];
     a[i] = t;
-  }
     }
     return a;
 }
