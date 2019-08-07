@@ -31,8 +31,9 @@ const getPersonsOnline = async () => {
             logo: person.fields.Logo[0].url,
             photo: person.fields.Photo[0].url,
             entreprise: person.fields.Entreprise,
+            sexe: person.fields.MrMme.
             id: person.id,
-        }
+            }
     }).filter((person) => person);
     return persons;
 };
@@ -40,12 +41,16 @@ const getPersonsOnline = async () => {
 const getQuizMessage = async (user) => {
     const persons = await getPersons();
     shuffle(persons);
+    const personSexeToGuess = persons[0].sexe;
+    const memesexe = persons.filter((person) => {
+        return person.sexe === personSexeToGuess;
+    });  
     const buttons = [
         {
             "type": "button",
             "text": {
                 "type": "plain_text",
-                "text": persons[0].nom, // A remplacer
+                "text": memesexe[0].nom, // A remplacer
                 //"emoji": true
             },
             "value": "click_me_123",
@@ -56,20 +61,20 @@ const getQuizMessage = async (user) => {
             "type": "button",
             "text": {
                 "type": "plain_text",
-                "text": persons[1].nom, // A remplacer
+                "text": memesexe[1].nom, // A remplacer
                 //"emoji": true
             },
-            "value": JSON.stringify({nom: persons[0].nom, entreprise: persons[0].entreprise, id: persons[0].id}),
+            "value": JSON.stringify({nom: memesexe[0].nom, entreprise: memesexe[0].entreprise, id: memesexe[0].id}),
             "action_id": "guess_false1"
         },
         {
             "type": "button",
             "text": {
                 "type": "plain_text",
-                "text": persons[2].nom, // A remplacer
+                "text": memesexe[2].nom, // A remplacer
                 //"emoji": true
             },
-            "value": JSON.stringify({nom: persons[0].nom, entreprise: persons[0].entreprise, id: persons[0].id}),
+            "value": JSON.stringify({nom: memesexe[0].nom, entreprise: memesexe[0].entreprise, id: memesexe[0].id}),
             "action_id": "guess_false2"
         }
     ];
@@ -94,7 +99,7 @@ const getQuizMessage = async (user) => {
                     "emoji": true
                 },
                 //"image_url": "https://api.slack.com/img/blocks/bkb_template_images/beagle.png",
-                "image_url": persons[0].photo, // A remplacer
+                "image_url": memesexe[0].photo, // A remplacer
                 "alt_text": "image1"      
             },
             
