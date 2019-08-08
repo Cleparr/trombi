@@ -31,7 +31,7 @@ const getPersonsOnline = async () => {
             logo: person.fields.Logo[0].url,
             photo: person.fields.Photo[0].url,
             entreprise: person.fields.Entreprise,
-            sexe: person.fields.MrMme.
+            sexe: person.fields.MrMme,
             id: person.id,
             }
     }).filter((person) => person);
