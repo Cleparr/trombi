@@ -9,7 +9,7 @@ function shuffle(a) {
 
     // And swap it with the current element.
     t = a[m];
-    a[m] = array[i];
+    a[m] = a[i];
     a[i] = t;
     }
     return a;
