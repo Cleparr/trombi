@@ -21,7 +21,7 @@ const getPersons = async () => {
 // Recherche de la base Airtable
 const getPersonsOnline = async () => {
     // Start your app
-    const data = await base('Table 1').select().all()
+    const data = await base('Coworkers').select().all()
     const persons = data.map((person) => {
         if (!person.fields.Nom) {
             return false;
