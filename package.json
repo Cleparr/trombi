@@ -21,7 +21,7 @@
     "@slack/interactive-messages": "^1.1.1",
     "@slack/rtm-api": "^5.0.1",
     "@slack/web-api": "^5.0.1",
-    "airtable": "^0.7.0",
+    "airtable": "^0.7.2",
     "dotenv": "^8.0.0",
     "slackbots": "^1.2.0"
   }
